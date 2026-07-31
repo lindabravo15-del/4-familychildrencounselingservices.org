@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4-Family & Children Counseling Services</title>
+<style>
+  :root{
+    --ink:#2f4550;
+    --ink-soft:#5b7280;
+    --sage:#7fa66b;
+    --sage-dark:#638751;
+    --cream:#f7f6f1;
+    --panel:#eef2ec;
+    --line:#dfe6db;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Iowan Old Style','Palatino Linotype', Georgia, serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand{
+    font-family: 'Avenir Next', 'Futura', 'Segoe UI', sans-serif;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .container{max-width:960px;margin:0 auto;padding:0 24px;}
+
+  /* editable affordance */
+  [contenteditable="true"]{
+    outline:none;
+    border-radius:6px;
+    transition:background .15s ease, box-shadow .15s ease;
+  }
+  [contenteditable="true"]:hover{
+    background:rgba(127,166,107,0.08);
+    box-shadow:0 0 0 2px rgba(127,166,107,0.25);
+  }
+  [contenteditable="true"]:focus{
+    background:rgba(127,166,107,0.12);
+    box-shadow:0 0 0 2px var(--sage);
+  }
+
+  /* header */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 24px;background:var(--white);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:20;
+    flex-wrap:wrap;gap:12px;
+  }
+  .brand-group{display:flex;align-items:center;gap:10px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--ink);display:flex;align-items:center;justify-content:center;
+    color:var(--sage);font-size:18px;flex-shrink:0;
+  }
+  .brand{font-size:1.05rem;font-weight:700;color:var(--ink);}
+  .brand span{color:var(--sage-dark);}
+  nav{display:flex;gap:20px;font-size:0.95rem;color:var(--ink-soft);flex-wrap:wrap;}
+  nav a{text-decoration:none;}
+  nav a:hover{color:var(--sage-dark);}
+  .call-btn{
+    background:var(--sage);color:white;border:none;padding:10px 20px;
+    border-radius:8px;font-size:0.95rem;font-family:inherit;cursor:pointer;
+    text-decoration:none;display:inline-block;
+  }
+  .call-btn:hover{background:var(--sage-dark);}
+
+  /* hero */
+  .hero{background:var(--panel);padding:60px 0 0;}
+  .hero .container{display:flex;flex-direction:column;gap:20px;padding-bottom:40px;}
+  .hero h1{font-size:2.6rem;color:var(--ink);margin:0;max-width:640px;}
+  .hero p.lede{font-size:1.15rem;color:var(--ink-soft);margin:0;max-width:520px;}
+  .hero-img{
+    width:100%;max-height:420px;object-fit:cover;border-radius:16px;
+  }
+  .btn-primary{
+    align-self:flex-start;background:var(--sage);color:white;padding:14px 28px;
+    border-radius:8px;text-decoration:none;font-size:1rem;font-weight:600;
+  }
+  .btn-primary:hover{background:var(--sage-dark);}
+  .wave{
+    display:block;width:100%;height:60px;margin-top:-1px;
+  }
+
+  section{padding:50px 0;}
+  .eyebrow{
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    color:var(--ink-soft);font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .eyebrow .rule{height:1px;width:40px;background:var(--line);}
+  h2.section-title{
+    text-align:center;font-size:1.9rem;color:var(--ink);margin:0 0 8px;
+  }
+  .section-sub{text-align:center;color:var(--ink-soft);max-width:560px;margin:0 auto 32px;}
+
+  .services-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+  }
+  .service-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:22px;
+  }
+  .service-card h3{margin:0 0 8px;font-size:1.1rem;color:var(--ink);}
+  .service-card p{margin:0;color:var(--ink-soft);font-size:0.95rem;}
+
+  .spanish-note{
+    text-align:center;color:var(--sage-dark);font-size:1.1rem;font-style:italic;
+    padding:30px 0;
+  }
+
+  .edu-list{display:grid;gap:14px;max-width:640px;margin:0 auto;}
+  .edu-item{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    padding:16px 20px;
+  }
+  .edu-item h3{margin:0 0 4px;font-size:1rem;}
+  .edu-item p{margin:0;color:var(--ink-soft);font-size:0.92rem;}
+
+  /* testimonial */
+  .testimonial-wrap{background:var(--panel);}
+  .testimonial-card{
+    background:var(--white);border-radius:16px;padding:32px;max-width:600px;margin:0 auto;
+    text-align:center;
+  }
+  .avatar{
+    width:64px;height:64px;border-radius:50%;background:var(--line);
+    margin:0 auto 16px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;color:var(--ink-soft);
+  }
+  .quote-mark{color:var(--sage);font-size:2rem;line-height:1;}
+  .testimonial-text{font-style:italic;color:var(--ink);font-size:1.05rem;}
+  .testimonial-name{color:var(--ink-soft);font-weight:600;margin-top:10px;}
+  .dots{display:flex;justify-content:center;gap:6px;margin-top:18px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .dot.active{background:var(--sage);width:22px;border-radius:4px;}
+
+  /* contact */
+  .contact-card{
+    background:var(--white);border-radius:16px;padding:32px;max-width:600px;margin:24px auto 0;
+    border:1px solid var(--line);
+  }
+  .contact-card h2{margin-top:0;font-size:1.4rem;}
+  .contact-row{display:flex;gap:12px;align-items:flex-start;margin:14px 0;color:var(--ink-soft);}
+  .contact-row .icon{color:var(--sage-dark);flex-shrink:0;}
+  .contact-row strong{color:var(--ink);}
+  .email-btn{
+    display:inline-block;margin-top:18px;background:var(--sage);color:white;
+    padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:600;
+  }
+  .email-btn:hover{background:var(--sage-dark);}
+
+  .areas-strip{background:var(--panel);text-align:center;padding:36px 0;}
+  .areas-strip .eyebrow-2{
+    color:var(--ink-soft);font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;
+  }
+  .areas-strip p{max-width:640px;margin:0 auto;color:var(--ink-soft);}
+  .areas-strip strong{color:var(--ink);}
+
+  footer{background:var(--ink);color:white;text-align:center;padding:36px 24px;}
+  footer h3{margin:0 0 10px;}
+  footer p{color:#c7d2d6;font-size:0.9rem;margin:0;}
+  footer .fish{margin-top:16px;font-size:1.4rem;color:#8fa8b3;}
+
+  /* toolbar */
+  #toolbar{
+    position:fixed;bottom:18px;right:18px;z-index:50;
+    display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  }
+  #toolbar button{
+    font-family:'Avenir Next','Segoe UI',sans-serif;
+    background:var(--ink);color:white;border:none;
+    padding:12px 18px;border-radius:30px;cursor:pointer;font-size:0.9rem;
+    box-shadow:0 4px 14px rgba(0,0,0,0.2);
+    display:flex;align-items:center;gap:8px;
+  }
+  #toolbar button:hover{background:#1f3038;}
+  #toolbar button.secondary{background:var(--sage-dark);}
+  #toolbar button.secondary:hover{background:var(--sage);}
+  #edit-banner{
+    position:fixed;top:0;left:0;right:0;background:var(--sage-dark);color:white;
+    text-align:center;font-size:0.85rem;padding:6px;z-index:40;display:none;
+  }
+  #edit-banner.show{display:block;}
+  #toast{
+    position:fixed;bottom:80px;right:18px;background:var(--ink);color:white;
+    padding:10px 16px;border-radius:8px;font-size:0.85rem;opacity:0;
+    transform:translateY(6px);transition:all .25s ease;pointer-events:none;z-index:60;
+  }
+  #toast.show{opacity:1;transform:translateY(0);}
+
+  @media(max-width:700px){
+    nav{display:none;}
+    .hero h1{font-size:2rem;}
+  }
+</style>
+</head>
+<body>
+
+<div id="edit-banner">Edit mode is on — click any text on the page to change it. Your edits are saved in this browser only until you export them.</div>
+
+<header>
+  <div class="brand-group">
+    <div class="brand-mark">◆</div>
+    <div class="brand" contenteditable="true" data-field="brandName">4-Family &amp; Children <span>Counseling Services</span></div>
+  </div>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#services">Services</a>
+    <a href="#education">Education</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="call-btn" href="tel:9519060176" data-field="callBtn" contenteditable="true">Call Us</a>
+</header>
+
+<section class="hero" id="hero">
+  <div class="container">
+    <h1 contenteditable="true" data-field="heroTitle">Helping Families Thrive Together</h1>
+    <p class="lede" contenteditable="true" data-field="heroSub">Supportive Counseling for Children, Teens &amp; Parents.</p>
+    <a class="btn-primary" href="#contact" data-field="heroCta" contenteditable="true">Get Started</a>
+    <img class="hero-img" src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?q=80&w=1200&auto=format&fit=crop" alt="Parent and child embracing on a couch">
+  </div>
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="#f7f6f1" d="M0,32 C240,60 480,0 720,20 C960,40 1200,10 1440,30 L1440,60 L0,60 Z"></path></svg>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="eyebrow"><span class="rule"></span>About Us<span class="rule"></span></div>
+    <h2 class="section-title" contenteditable="true" data-field="aboutTitle">Guiding Your Family to a Brighter Future</h2>
+    <p class="section-sub" contenteditable="true" data-field="aboutBody">We work alongside children, teens, and parents to build stronger communication, healthier coping skills, and a more connected home — in a warm, judgment-free space.</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="eyebrow"><span class="rule"></span>Our Services<span class="rule"></span></div>
+    <h2 class="section-title" contenteditable="true" data-field="servicesTitle">Ways We Can Help</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3 contenteditable="true" data-field="service1Title">Family Therapy</h3>
+        <p contenteditable="true" data-field="service1Body">Rebuilding trust and communication between family members.</p>
+      </div>
+      <div class="service-card">
+        <h3 contenteditable="true" data-field="service2Title">Child Counseling</h3>
+        <p contenteditable="true" data-field="service2Body">Helping younger children process emotions and build resilience.</p>
+      </div>
+      <div class="service-card">
+        <h3 contenteditable="true" data-field="service3Title">Teen Counseling</h3>
+        <p contenteditable="true" data-field="service3Body">Supporting teens through anxiety, identity, and life transitions.</p>
+      </div>
+      <div class="service-card">
+        <h3 contenteditable="true" data-field="service4Title">Telehealth</h3>
+        <p contenteditable="true" data-field="service4Body">Secure virtual sessions available for the whole family.</p>
+      </div>
+    </div>
+    <p class="spanish-note" contenteditable="true" data-field="spanishNote">Hablamos y hacemos terapia en español</p>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <div class="eyebrow"><span class="rule"></span>Learn From the Experts<span class="rule"></span></div>
+    <h2 class="section-title" contenteditable="true" data-field="eduTitle">Educational Resources for Parents &amp; Families</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <h3 contenteditable="true" data-field="edu1Title">Understanding Childhood Anxiety</h3>
+        <p contenteditable="true" data-field="edu1Body">Signs to watch for and how to respond supportively at home.</p>
+      </div>
+      <div class="edu-item">
+        <h3 contenteditable="true" data-field="edu2Title">Communicating with Your Teen</h3>
+        <p contenteditable="true" data-field="edu2Body">Practical tips for keeping the conversation open.</p>
+      </div>
+      <div class="edu-item">
+        <h3 contenteditable="true" data-field="edu3Title">Co-Parenting Through Change</h3>
+        <p contenteditable="true" data-field="edu3Body">Guidance for families navigating separation or transition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-wrap" id="testimonials">
+  <div class="container">
+    <div class="eyebrow"><span class="rule"></span>Testimonials<span class="rule"></span></div>
+    <div class="testimonial-card">
+      <div class="avatar">🙂</div>
+      <h3 contenteditable="true" data-field="testTitle">What Our Clients Are Saying</h3>
+      <div class="quote-mark">&ldquo;</div>
+      <p class="testimonial-text" contenteditable="true" data-field="testBody">The staff here have been wonderful. They've easily helped our family connect and grow stronger. Highly recommend!</p>
+      <p class="testimonial-name" contenteditable="true" data-field="testName">- Sarah M.</p>
+      <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-card">
+      <h2 contenteditable="true" data-field="contactTitle">Get In Touch</h2>
+      <p contenteditable="true" data-field="contactSub">Ready to take the next step? Contact us today!</p>
+      <div class="contact-row"><span class="icon">📞</span><span>Call: <strong contenteditable="true" data-field="phone">(951) 906-0176</strong></span></div>
+      <div class="contact-row"><span class="icon">✉️</span><span>Email: <strong contenteditable="true" data-field="email">counselingservices4you@outlook.com</strong></span></div>
+      <div class="contact-row"><span class="icon">📍</span><span contenteditable="true" data-field="address">Location: 229 S. Riverside Ave, Suite J, Rialto, CA 92375 &amp; Via Telehealth</span></div>
+      <div class="contact-row"><span class="icon">📍</span><span>Serving: <span contenteditable="true" data-field="serviceAreas">Rialto · Moreno Valley · Corona · Temecula · Menifee · Perris · Wildomar · Norco · Eastvale</span></span></div>
+      <a class="email-btn" href="mailto:counselingservices4you@outlook.com" data-field="emailBtn" contenteditable="true">Email Us Directly</a>
+    </div>
+  </div>
+</section>
+
+<section class="areas-strip">
+  <div class="container">
+    <div class="eyebrow-2">Areas We Serve</div>
+    <p contenteditable="true" data-field="areasBody"><strong>Family counseling, child therapy &amp; teen counseling</strong> serving Rialto, Moreno Valley, Corona, Temecula, Menifee, Perris, Wildomar, Norco, Eastvale and all of Riverside County &amp; San Bernardino County, CA. In-office and Telehealth available. <em>Hablamos español.</em></p>
+  </div>
+</section>
+
+<footer>
+  <h3 contenteditable="true" data-field="footerBrand">4-Family &amp; Children Counseling</h3>
+  <p contenteditable="true" data-field="footerCopy">© 2026 4-Family &amp; Children Counseling Services. All rights reserved.</p>
+  <div class="fish">🐟</div>
+</footer>
+
+<div id="toast"></div>
+<div id="toolbar">
+  <button class="secondary" id="toggleEdit">✏️ Edit mode: On</button>
+  <button id="exportBtn">⬇ Export content</button>
+</div>
+
+<script>
+  const STORAGE_KEY = 'family-counseling-site-content';
+  const editableEls = Array.from(document.querySelectorAll('[contenteditable="true"]'));
+
+  // load any previously saved edits from this browser
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    editableEls.forEach(el=>{
+      const key = el.getAttribute('data-field');
+      if(saved[key] !== undefined) el.innerHTML = saved[key];
+    });
+  }catch(e){}
+
+  function saveAll(){
+    const data = {};
+    editableEls.forEach(el=>{
+      data[el.getAttribute('data-field')] = el.innerHTML.trim();
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+  editableEls.forEach(el=>{
+    el.addEventListener('input', saveAll);
+    el.addEventListener('blur', saveAll);
+  });
+
+  // edit mode toggle (on by default)
+  let editing = true;
+  const banner = document.getElementById('edit-banner');
+  const toggleBtn = document.getElementById('toggleEdit');
+  function applyEditState(){
+    editableEls.forEach(el=> el.setAttribute('contenteditable', editing ? 'true':'false'));
+    banner.classList.toggle('show', editing);
+    toggleBtn.textContent = editing ? '✏️ Edit mode: On' : '🔒 Edit mode: Off';
+  }
+  applyEditState();
+  toggleBtn.addEventListener('click', ()=>{
+    editing = !editing;
+    applyEditState();
+  });
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 2200);
+  }
+
+  // export: pulls every editable field's current plain text into a clean, labeled text file
+  document.getElementById('exportBtn').addEventListener('click', ()=>{
+    const labels = {
+      brandName:'Site Name', callBtn:'Header Call Button',
+      heroTitle:'Hero Headline', heroSub:'Hero Subheadline', heroCta:'Hero Button',
+      aboutTitle:'About Title', aboutBody:'About Body',
+      servicesTitle:'Services Title',
+      service1Title:'Service 1 Title', service1Body:'Service 1 Description',
+      service2Title:'Service 2 Title', service2Body:'Service 2 Description',
+      service3Title:'Service 3 Title', service3Body:'Service 3 Description',
+      service4Title:'Service 4 Title', service4Body:'Service 4 Description',
+      spanishNote:'Spanish Language Note',
+      eduTitle:'Education Section Title',
+      edu1Title:'Resource 1 Title', edu1Body:'Resource 1 Description',
+      edu2Title:'Resource 2 Title', edu2Body:'Resource 2 Description',
+      edu3Title:'Resource 3 Title', edu3Body:'Resource 3 Description',
+      testTitle:'Testimonials Title', testBody:'Testimonial Quote', testName:'Testimonial Author',
+      contactTitle:'Contact Title', contactSub:'Contact Subheading',
+      phone:'Phone', email:'Email', address:'Address', serviceAreas:'Service Areas',
+      emailBtn:'Contact Email Button',
+      areasBody:'Areas We Serve Blurb',
+      footerBrand:'Footer Brand', footerCopy:'Footer Copyright'
+    };
+    let out = '4-FAMILY & CHILDREN COUNSELING SERVICES — SITE CONTENT\n';
+    out += 'Exported: ' + new Date().toLocaleString() + '\n';
+    out += '='.repeat(60) + '\n\n';
+    editableEls.forEach(el=>{
+      const key = el.getAttribute('data-field');
+      const label = labels[key] || key;
+      const text = el.innerText.trim();
+      out += label + ':\n' + text + '\n\n';
+    });
+
+    const blob = new Blob([out], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'site-content-export.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Content exported ✓');
+  });
+</script>
+
+</body>
+</html>
