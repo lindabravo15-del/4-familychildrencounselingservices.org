@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .joke-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .joke-text {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .loading {
+            color: #667eea;
+            font-style: italic;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        .joke-type {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .joke-counter {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .joke-text {
+                font-size: 1em;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>😂 Joke Generator</h1>
+        
+        <div class="joke-box">
+            <div class="joke-text" id="jokeText">Click a button to get a joke!</div>
+        </div>
+
+        <div class="button-group">
+            <button onclick="getRandomJoke()">Get Random Joke</button>
+            <button onclick="getJokeByType('general')">General Joke</button>
+            <button onclick="getJokeByType('programming')">Programming Joke</button>
+            <button onclick="getJokeByType('knock-knock')">Knock Knock Joke</button>
+        </div>
+
+        <div class="joke-counter">
+            <p>Jokes loaded: <span id="jokeCount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let jokeCount = 0;
+
+        async function getRandomJoke() {
+            const jokeElement = document.getElementById('jokeText');
+            const button = event.target;
+            
+            jokeElement.innerHTML = '<span class="loading">Loading joke...</span>';
+            button.disabled = true;
+
+            try {
+                // Using JokeAPI - free API that doesn't require authentication
+                const response = await fetch('https://v2.jokeapi.dev/joke/Any');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch joke');
+                }
+
+                const data = await response.json();
+                displayJoke(data);
+                jokeCount++;
+                updateJokeCount();
+
+            } catch (error) {
+                jokeElement.innerHTML = `<span class="error">😢 Oops! Couldn't load a joke. ${error.message}</span>`;
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        async function getJokeByType(type) {
+            const jokeElement = document.getElementById('jokeText');
+            const buttons = document.querySelectorAll('button');
+            
+            jokeElement.innerHTML = '<span class="loading">Loading joke...</span>';
+            buttons.forEach(btn => btn.disabled = true);
+
+            try {
+                const response = await fetch(`https://v2.jokeapi.dev/joke/${type}`);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch joke');
+                }
+
+                const data = await response.json();
+                displayJoke(data);
+                jokeCount++;
+                updateJokeCount();
+
+            } catch (error) {
+                jokeElement.innerHTML = `<span class="error">😢 Oops! Couldn't load a joke. ${error.message}</span>`;
+            } finally {
+                buttons.forEach(btn => btn.disabled = false);
+            }
+        }
+
+        function displayJoke(data) {
+            const jokeElement = document.getElementById('jokeText');
+
+            if (data.type === 'twopart') {
+                // Two-part joke (setup and delivery)
+                jokeElement.innerHTML = `
+                    <div>
+                        <p><strong>${data.setup}</strong></p>
+                        <p style="margin-top: 15px; font-style: italic;">${data.delivery}</p>
+                    </div>
+                `;
+            } else {
+                // Single joke
+                jokeElement.innerHTML = data.joke;
+            }
+
+            // Add joke category
+            const typeElement = document.createElement('div');
+            typeElement.className = 'joke-type';
+            typeElement.textContent = `Category: ${data.category}`;
+            jokeElement.appendChild(typeElement);
+        }
+
+        function updateJokeCount() {
+            document.getElementById('jokeCount').textContent = jokeCount;
+        }
+    </script>
+</body>
+</html>
